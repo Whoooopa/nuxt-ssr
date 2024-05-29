@@ -3,33 +3,43 @@
     <Navigation />
     <InputCard />
     <UDivider />
-    <TestCard v-if="cards" v-for="card in cards" :card="card"/>
-    {{ 'onServerPrefetch&fetch ' }}
+    <!-- <TestCard v-if="cards" v-for="card in cards" :card="card"/> -->
+    <!-- {{ 'onServerPrefetch&fetch ' }} -->
     <div class="mb-20">
       
-      {{ data }}
+      {{ pending ? "Loading" : hello }}
     </div>
-    
+    <!-- <div class="mb-20">
+      lazyfetch
+      {{ pending ? 'Loading' : "hello" }}
+    </div> -->
     <div class="mb-20">
-      {{ 'UseAsyncData&Fetch ' }}
-      {{  dataWithUseAsyncDataFetch }}
+      <!-- {{ 'UseAsyncData&Fetch ' }}
+      {{  dataWithUseAsyncDataFetch }} -->
     </div>
     <UDivider />
     <div class="mb-20">
-      {{ 'UseFetch ' }}
-      {{ dataWithUseFetch }}
+      <!-- {{ 'UseFetch ' }}
+      {{ dataWithUseFetch }} -->
     </div>
     <UDivider />
     <div>
-      {{ 'testData here ' }}
-      {{ testData }}
+      <!-- {{ 'testData here ' }}
+      {{ testData }} -->
     </div>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+// const { res: hello, pending } = await useLazyFetch('/api/hello', {
+//   transform: (_hello) => _hello.data,
+// }).then(()=>{
+//   console.log(hello);
+// });
+// const { data: hello } = await useFetch('/api/hello');
+// console.log(toRaw(data.value));
 
-const data = ref(null);
+const { data: hello, pending } = await useLazyFetch("/api/hello2");
 const dataWithUseAsyncDataFetch = ref(null);
 const dataWithUseFetch = ref(null);
 // const logLifecycleHook = (hookName: string) => {
@@ -81,21 +91,28 @@ const dataWithUseFetch = ref(null);
 // });
 
 // called in server side and is transferred to client
-const testStore = useTestStore();
-dataWithUseAsyncDataFetch.value = await useAsyncData('item', () => $fetch("https://images-api.nasa.gov/search?q=space&media_type=image&page_size=1"))
-dataWithUseFetch.value = await useFetch("https://images-api.nasa.gov/search",{
-  query: {q: 'sun', media_type: 'image', page_size: '1'}
-})
-onServerPrefetch(async () => {
+// const testStore = useTestStore();
+// dataWithUseAsyncDataFetch.value = await useAsyncData('item', () => $fetch("https://images-api.nasa.gov/search?q=space&media_type=image&page_size=1"))
+// dataWithUseFetch.value = await useFetch("https://images-api.nasa.gov/search",{
+//   query: {q: 'sun', media_type: 'image', page_size: '1'}
+// })
+// onServerPrefetch(async () => {
 
-  data.value = await $fetch("https://images-api.nasa.gov/search?q=space&media_type=image&page_size=1");
-  testStore.$state.spaceImage = data.value;
-});
-console.log(toRaw(testStore.$state.spaceImage));
-console.log(window);
-const cards = computed(()=> testStore.$state.cards);
-const testData = computed(()=> testStore.$state.spaceImage);
-console.log(testData.value);
+//   data.value = await $fetch("https://images-api.nasa.gov/search?q=space&media_type=image&page_size=1");
+//   testStore.$state.spaceImage = data.value;
+// });
+// console.log(toRaw(testStore.$state.spaceImage));
+// console.log(window);
+// const cards = computed(()=> testStore.$state.cards);
+// const testData = computed(()=> testStore.$state.spaceImage);
+// console.log(testData.value);
+
+useHead({
+  title: 'SSR',
+  meta: [
+    { name: 'description', content: 'this call api from nitro under server/api with useLazyFetch'}
+  ]
+})
 </script>
 
 <style>
