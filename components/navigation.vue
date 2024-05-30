@@ -1,30 +1,23 @@
 <template>
-  <div>
-    <UHorizontalNavigation :links="links" class="border-b border-gray-200 dark:border-gray-800" />
+  <div class="flex flex-row gap-4">
+    <button v-for="link in links" :key="link.label" @click="router.push({name:`${link.to}`})">
+      {{ link.label }}
+    </button>
   </div>
 </template>
 
 <script setup>
-const route = useRoute();
+const router = useRouter();
 
 const links = [{
   label: "CSR",
-  to: "/csr"
+  to: "csr"
 },{
   label: "SSR",
-  to: "/ssr"
+  to: "ssr"
 },{
   label: "Home",
-  to: "/"
-},{
-  label: "ISR",
-  to: "/isr"
-},{
-  label: "Prerender",
-  to: "/prerender"
-},{
-  label: "SWR",
-  to: "/swr"
+  to: "index"
 },]
 </script>
 

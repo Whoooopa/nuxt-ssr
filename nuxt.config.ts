@@ -2,6 +2,12 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
+  experimental: {
+    componentIslands: {
+      selectiveClient: true
+    },
+  },
+
   appConfig: {
     ui: {
       primary: 'blue',
@@ -14,11 +20,7 @@ export default defineNuxtConfig({
 
   routeRules: {
     '/csr': { ssr: false },
-    '/isr': { isr: true },
-    '/swr': { swr: true },
-    '/prerender': { prerender: true },
-    '/ssr': { ssr: true },
-    '/': { redirect: '/ssr' }
+    '/ssr': { ssr: true }
 
   },
 
