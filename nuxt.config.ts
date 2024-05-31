@@ -4,7 +4,7 @@ export default defineNuxtConfig({
 
   experimental: {
     componentIslands: {
-      selectiveClient: true
+      selectiveClient: true, // "deep" or "true" https://nuxt.com/docs/guide/directory-structure/components#server-components
     },
   },
 
@@ -18,13 +18,7 @@ export default defineNuxtConfig({
     }
   },
 
-  routeRules: {
-    '/csr': { ssr: false },
-    '/ssr': { ssr: true }
-
-  },
-
-  modules: ["@nuxt/ui", "@pinia/nuxt"],
+  modules: ["@nuxt/ui", "@pinia/nuxt", "@nuxt/image"],
   alias: {
     pinia: "/node_modules/@pinia/nuxt/node_modules/pinia/dist/pinia.mjs"
   },

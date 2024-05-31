@@ -10,14 +10,17 @@
 const router = useRouter();
 
 const links = [{
-  label: "CSR",
-  to: "csr"
-},{
   label: "SSR",
   to: "ssr"
 },{
   label: "Home",
   to: "index"
+},{
+  label: "ServerPage",
+  to: "serverPage"
+},{
+  label: "RegularPage",
+  to: "regularPage"
 },]
 </script>
 
